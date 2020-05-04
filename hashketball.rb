@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require "pry"
 def game_hash
   {
     home: {
@@ -7,7 +8,7 @@ def game_hash
       players: [
         {
           player_name: "Alan Anderson",
-          number: 0,
+          number:0,
           shoe: 16,
           points: 22,
           rebounds: 12,
@@ -35,7 +36,7 @@ def game_hash
           rebounds: 19,
           assists: 10,
           steals: 3,
-          blocks: 1,
+          blocks: 1,  
           slam_dunks: 15
         },
         {
@@ -127,3 +128,91 @@ def game_hash
 end
 
 # Write code here
+
+def num_points_scored(players_name)
+  game_hash.each do |location, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+        if player[:player_name] == players_name
+          return player[:points]
+        end
+        end
+      end
+    end
+  end
+end
+
+
+def shoe_size(players_name)
+  game_hash.each do |location, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+        if player[:player_name] == players_name
+          return player[:shoe]
+        end
+        end
+      end
+    end
+  end
+end
+
+
+def team_colors(string)
+  if string == "Brooklyn Nets"
+    game_hash[:home][:colors]
+  elsif string =="Charlotte Hornets"
+    game_hash[:away][:colors]
+  end
+end
+
+def team_names
+    new_array = []
+    game_hash.each do |location, team|
+        new_array << team[:team_name]
+    end
+    new_array
+end
+
+def player_numbers(team_name)
+	jerseys = []
+	game_hash.each do |location, team_data| 
+		if team_data[:team_name] == team_name
+			team_data[:players].each {|a| jerseys.push(a[:number]) }
+		end
+	end
+	jerseys
+end
+
+def player_stats(players_name)
+  game_hash.each do |location, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+        if player[:player_name] == players_name
+          return player
+        end
+        end
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  big_shoe = 0
+  big_rebounds = 0
+  game_hash.each do |location, team|
+    team.each do |attribute, data|
+      if attribute == :players
+         data.each do |element|
+          if element[:shoe] > big_shoe
+          big_shoe = element[:shoe]
+          big_rebounds = element[:rebounds]
+        end 
+        end 
+      end 
+    end
+  end 
+big_rebounds
+end
